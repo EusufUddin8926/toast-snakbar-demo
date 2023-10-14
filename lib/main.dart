@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 void main() {
   runApp(const MyApp());
@@ -40,8 +41,33 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            OutlinedButton(onPressed: () {}, child: Text("Show Toast")),
-            OutlinedButton(onPressed: () {}, child: Text("Show SnakBar")),
+            OutlinedButton(
+                onPressed: () {
+                  Fluttertoast.showToast(
+                      msg: "This is simple Toast",
+                      toastLength: Toast.LENGTH_LONG,
+                      gravity: ToastGravity.BOTTOM,
+                      textColor: Colors.black);
+                },
+                child: const Text("Show Toast")),
+            const SizedBox(
+              height: 20,
+            ),
+            OutlinedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text("Sample Snakbar"),
+                    duration: const Duration(seconds: 60),
+                    action: SnackBarAction(
+                      label: "Ok",
+                      onPressed: () {
+                        ScaffoldMessenger.of(context).hideCurrentSnackBar();
+                      },
+                      textColor: Colors.cyan,
+                    ),
+                  ));
+                },
+                child: const Text("Show SnakBar")),
           ],
         ),
       ),
